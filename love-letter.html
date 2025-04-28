@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Love Letter to You</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+    
+    :root {
+      --primary-color: #8a2be2;
+      --secondary-color: #9370db;
+      --accent-color: #ba55d3;
+      --light-color: #e6e6fa;
+      --dark-color: #4b0082;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #9370db, #8a2be2, #9932cc);
+      background-size: 400% 400%;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      animation: gradientBG 15s ease infinite;
+    }
+    
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .heart-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .heart {
+      position: absolute;
+      transform-origin: center;
+      pointer-events: none;
+      animation: heartFloat linear infinite;
+    }
+    
+    /* Proper heart shape with CSS */
+    .heart:before,
+    .heart:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(186, 85, 211, 0.8);
+      border-radius: 50% 50% 0 0;
+      filter: drop-shadow(0 0 5px rgba(186, 85, 211, 0.5));
+    }
+    
+    .heart:before {
+      left: -50%;
+      transform: rotate(-45deg);
+      transform-origin: 100% 100%;
+    }
+    
+    .heart:after {
+      transform: rotate(45deg);
+      transform-origin: 0 100%;
+    }
+    
+    @keyframes heartFloat {
+      0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      25% {
+        transform: translateY(-250px) scale(0.9) rotate(5deg);
+      }
+      50% {
+        transform: translateY(-500px) scale(0.8) rotate(-5deg);
+        opacity: 0.8;
+      }
+      75% {
+        transform: translateY(-750px) scale(0.7) rotate(3deg);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-1000px) scale(0.6) rotate(-3deg);
+        opacity: 0;
+      }
+    }
+    
+    h1 {
+      margin-top: 20px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5rem;
+      color: var(--light-color);
+      text-shadow: 0 0 8px var(--dark-color), 0 0 15px var(--accent-color);
+      animation: pulseText 2s infinite alternate;
+    }
+    
+    @keyframes pulseText {
+      from { text-shadow: 0 0 8px var(--dark-color), 0 0 15px var(--accent-color); }
+      to { text-shadow: 0 0 12px var(--dark-color), 0 0 25px var(--accent-color), 0 0 40px var(--secondary-color); }
+    }
+    
+    #letter-container {
+      max-width: 600px;
+      max-height: 350px;
+      margin-top: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 5px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1.5s ease 0.5s forwards;
+    }
+    
+    #letter {
+      background: rgba(255,255,255,0.95);
+      padding: 30px 40px;
+      border-radius: 15px;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #333;
+      overflow-y: auto;
+      max-height: 340px;
+      position: relative;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-color) transparent;
+    }
+    
+    #letter::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    #letter::-webkit-scrollbar-track {
+      background: transparent;
+      margin: 10px 0;
+    }
+    
+    #letter::-webkit-scrollbar-thumb {
+      background-color: var(--accent-color);
+      border-radius: 10px;
+    }
+    
+    #letter::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 5px 5px 0 0;
+    }
+    
+    #letter::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30px;
+      background: linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));
+      pointer-events: none;
+      border-radius: 0 0 15px 15px;
+    }
+    
+    #letter p {
+      margin-bottom: 20px;
+    }
+    
+    .highlight {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    .signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
+    }
+    
+    .emoji {
+      display: inline-block;
+      font-size: 1.4rem;
+      margin: 0 3px;
+      filter: drop-shadow(0 0 2px rgba(0,0,0,0.2));
+      animation: emojiFloat 3s ease-in-out infinite;
+    }
+    
+    @keyframes emojiFloat {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-5px) rotate(10deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+    
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .glow-button {
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      margin-top: 30px;
+      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+      transition: all 0.3s;
+      cursor: pointer;
+      animation: glow 1.5s ease-in-out infinite alternate;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease 2s forwards, glow 1.5s ease-in-out 2.5s infinite alternate;
+    }
+    
+    .glow-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
+    }
+    
+    @keyframes glow {
+      from { box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4); }
+      to { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.8), 0 0 40px rgba(147, 112, 219, 0.6); }
+    }
+    
+    /* Heart shower animation */
+    .heart-shower {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+    }
+    
+    .burst-heart {
+      position: absolute;
+      animation: burstAnimation 2s forwards;
+    }
+    
+    @keyframes burstAnimation {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+    
+    #floating-hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      opacity: 0.8;
+      animation: fadeInOut 2s ease-in-out infinite;
+    }
+    
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+    
+    /* Firefly particles effect */
+    .firefly {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 10px 2px rgba(186, 85, 211, 0.8);
+      pointer-events: none;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+
+<div id="floating-hearts"></div>
+<div class="heart-shower" id="heartShower"></div>
+<canvas id="falling"></canvas>
+<div id="fireflies"></div>
+
+<h1 class="floating">Happy Birthday, My Love ❤️</h1>
+
+<div id="letter-container">
+  <div id="letter">
+    <p>
+      Dearest Love, <span class="emoji">💜</span>
+    </p>
+    <p>
+      From the first moment I saw you, I knew my world had changed forever. It was as if all the colors became more vibrant, all the music more beautiful, and all the stars shone just a little brighter.
+    </p>
+    <p>
+      I find myself lost in your eyes, captivated by your smile, and completely enchanted by the beautiful person you are. Every day with you feels like a precious gift that I treasure with all my heart.
+    </p>
+    <p>
+      When we laugh together, time stands still. When we hold each other, the world fades away. <span class="highlight">You've become the rhythm of my heartbeat, the melody in my soul.</span> In your arms, I've found my home.
+    </p>
+    <p>
+      Thank you for being my best friend, my confidant, my happiness, and my everything. With you, even ordinary moments become extraordinary memories. <span class="emoji">✨</span> Your kindness, your strength, and your beautiful spirit inspire me every single day.
+    </p>
+    <p>
+      On your special day, I want you to know that I love you more than all the stars in the universe. More than words could ever express. <span class="emoji">💖</span> Your birthday is a celebration of the most wonderful person I know, and I'm so grateful that you were born and that somehow, among billions of people, we found each other.
+    </p>
+    <p>
+      When I think about my future, all I see is you. All I want is to build a life filled with adventure, laughter, and endless love by your side. Through every challenge, every triumph, every quiet moment in between - I want it all with you.
+    </p>
+    <p class="highlight">
+      You make me feel like I can accomplish anything. You believe in me when I forget to believe in myself. You see me - truly see me - and love me anyway. That is the greatest gift anyone has ever given me.
+    </p>
+    <p>
+      Here's to many more birthdays together, my love. To countless adventures, infinite laughter, and a lifetime of making each other's hearts skip a beat. <span class="emoji">🎉</span> May this year bring you all the joy and happiness that you deserve.
+    </p>
+    <div class="signature">Forever Yours</div>
+    <div class="scroll-indicator">
+      <i class="fas fa-angle-down"></i>
+    </div>
+  </div>
+</div>
+
+<button class="glow-button" id="showLove">Send My Love <i class="fas fa-heart"></i></button>
+
+<script>
+// Falling petals and sparkles animation with improved physics
+const canvas = document.getElementById('falling');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let particles = [];
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height - canvas.height;
+    this.size = Math.random() * 8 + 4;
+    this.type = Math.random() < 0.6 ? 'petal' : 'sparkle';
+    
+    // Purple color scheme
+    this.color = this.type === 'petal' ? 
+      `hsla(${Math.random() * 40 + 260}, ${Math.random() * 30 + 70}%, ${Math.random() * 20 + 70}%, ${Math.random() * 0.4 + 0.4})` : 
+      `hsla(${Math.random() * 40 + 260}, ${Math.random() * 30 + 70}%, ${Math.random() * 30 + 70}%, ${Math.random() * 0.6 + 0.4})`;
+    
+    // Physics properties
+    this.speedY = Math.random() * 1 + 0.5;
+    this.speedX = Math.random() * 1.5 - 0.75;
+    this.rotationSpeed = Math.random() * 0.03 - 0.015;
+    this.rotation = Math.random() * Math.PI * 2;
+    this.swingFactor = Math.random() * 0.04;
+    this.swingOffset = Math.random() * Math.PI * 2;
+    this.turbulence = Math.random() * 0.1;
+    this.opacity = Math.random() * 0.7 + 0.3;
+    this.lifespan = Math.random() * 200 + 300;
+    this.age = 0;
+    // Damping effect for more realistic physics
+    this.damping = 0.98;
+    
+    // Petal shape variation
+    this.width = this.size * (0.7 + Math.random() * 0.6);
+    this.height = this.size * (1.1 + Math.random() * 0.4);
+    this.curve = Math.random() * 0.3 + 0.1;
+  }
+  
+  update() {
+    // Apply gravity
+    this.speedY += 0.01;
+    
+    // Apply damping for more realistic physics
+    this.speedY *= this.damping;
+    this.speedX *= this.damping;
+    
+    // Apply turbulence
+    this.speedX += (Math.random() - 0.5) * this.turbulence;
+    
+    // Apply movement
+    this.y += this.speedY;
+    this.x += this.speedX + Math.sin(this.y * this.swingFactor + this.swingOffset) * 1.5;
+    this.rotation += this.rotationSpeed;
+    this.age++;
+    
+    if (this.age >= this.lifespan || this.y > canvas.height) {
+      // Reset particle
+      this.x = Math.random() * canvas.width;
+      this.y = -this.size;
+      this.age = 0;
+      this.opacity = Math.random() * 0.7 + 0.3;
+      this.speedY = Math.random() * 1 + 0.5;
+    }
+    
+    // Fade out as it ages and falls
+    if (this.age > this.lifespan * 0.7) {
+      this.opacity = Math.max(0, this.opacity - 0.01);
+    }
+  }
+  
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.globalAlpha = this.opacity;
+    
+    if (this.type === 'petal') {
+      // Draw more realistic petal shape
+      ctx.beginPath();
+      
+      // Create curved petal with bezier curves
+      ctx.moveTo(0, -this.height/2);
+      
+      // Right curve
+      ctx.bezierCurveTo(
+        this.width/2 * this.curve, -this.height/2,
+        this.width/2, -this.height/4,
+        this.width/2, 0
+      );
+      ctx.bezierCurveTo(
+        this.width/2, this.height/4,
+        this.width/4, this.height/2,
+        0, this.height/2
+      );
+      
+      // Left curve
+      ctx.bezierCurveTo(
+        -this.width/4, this.height/2,
+        -this.width/2, this.height/4,
+        -this.width/2, 0
+      );
+      ctx.bezierCurveTo(
+        -this.width/2, -this.height/4,
+        -this.width/2 * this.curve, -this.height/2,
+        0, -this.height/2
+      );
+      
+      // Create gradient
+      const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.width/2);
+      const baseColor = this.color.replace(/[^,]+\)$/, '');
+      gradient.addColorStop(0, baseColor + '1)');
+      gradient.addColorStop(0.7, baseColor + '0.8)');
+      gradient.addColorStop(1, baseColor + '0.5)');
+      
+      ctx.fillStyle = gradient;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 5;
+      ctx.fill();
+    } else {
+      // Draw sparkle with glow effect
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 15;
+      
+      const spikes = 4;
+      const outerRadius = this.size / 2;
+      const innerRadius = this.size / 4;
+      
+      ctx.beginPath();
+      for (let i = 0; i < spikes * 2; i++) {
+        const radius = i % 2 === 0 ? outerRadius : innerRadius;
+        const angle = (i * Math.PI) / spikes;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.closePath();
+      ctx.fill();
+    }
+    
+    ctx.restore();
+  }
+}
+
+// Firefly effect for atmospheric backdrop
+class Firefly {
+  constructor() {
+    this.x = Math.random() * window.innerWidth;
+    this.y = Math.random() * window.innerHeight;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 2 - 1;
+    this.speedY = Math.random() * 2 - 1;
+    this.intensity = Math.random();
+    this.element = document.createElement('div');
+    this.element.className = 'firefly';
+    this.element.style.width = `${this.size}px`;
+    this.element.style.height = `${this.size}px`;
+    this.element.style.left = `${this.x}px`;
+    this.element.style.top = `${this.y}px`;
+    this.element.style.opacity = this.intensity;
+    
+    document.getElementById('fireflies').appendChild(this.element);
+    
+    this.flickerSpeed = Math.random() * 0.01 + 0.005;
+    this.flickerDirection = Math.random() > 0.5 ? 1 : -1;
+    this.maxIntensity = Math.random() * 0.6 + 0.4;
+    this.minIntensity = Math.random() * 0.2;
+  }
+  
+  update() {
+    // Random movement with slight attraction to center
+    this.x += this.speedX;
+    this.y += this.speedY;
+    
+    // Boundary checks with wrap-around
+    if (this.x < 0) this.x = window.innerWidth;
+    if (this.x > window.innerWidth) this.x = 0;
+    if (this.y < 0) this.y = window.innerHeight;
+    if (this.y > window.innerHeight) this.y = 0;
+    
+    // Occasionally change direction
+    if (Math.random() < 0.01) {
+      this.speedX = Math.random() * 2 - 1;
+      this.speedY = Math.random() * 2 - 1;
+    }
+    
+    // Flicker effect
+    this.intensity += this.flickerSpeed * this.flickerDirection;
+    if (this.intensity > this.maxIntensity || this.intensity < this.minIntensity) {
+      this.flickerDirection *= -1;
+    }
+    
+    // Update element position and opacity
+    this.element.style.left = `${this.x}px`;
+    this.element.style.top = `${this.y}px`;
+    this.element.style.opacity = this.intensity;
+  }
+}
+
+function createParticles(count) {
+  for (let i = 0; i < count; i++) {
+    particles.push(new Particle());
+  }
+}
+
+function createFireflies(count) {
+  for (let i = 0; i < count; i++) {
+    new Firefly();
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(particle => {
+    particle.update();
+    particle.draw();
+  });
+  requestAnimationFrame(animate);
+}
+
+// Create proper CSS hearts with better animation
+function createFloatingHeart() {
+  const heartsContainer = document.getElementById('floating-hearts');
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  
+  // Set heart size (random between 15px and 35px)
+  const size = Math.random() * 20 + 15;
+  heart.style.width = `${size}px`;
+  heart.style.height = `${size}px`;
+  
+  // Set initial position at the bottom of the screen with random X
+  const startX = Math.random() * window.innerWidth;
+  heart.style.left = `${startX}px`;
+  heart.style.bottom = '-30px';
+  
+  // Set animation properties
+  const duration = Math.random() * 8 + 10; // 10-18 seconds
+  heart.style.animationDuration = `${duration}s`;
+  
+  // Random color variation in purple hues
+  const hue = Math.random() * 60 + 260; // 260-320 (purple range)
+  const saturation = Math.random() * 30 + 70; // 70-100%
+  const lightness = Math.random() * 20 + 60; // 60-80%
+  const opacity = Math.random() * 0.3 + 0.5; // 0.5-0.8
+  
+  heart.style.setProperty('--heart-color', `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`);
+  
+  // Add a slight random rotation to each heart
+  heart.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+  
+  heartsContainer.appendChild(heart);
+  
+  // Remove heart after animation completes
+  setTimeout(() => {
+    heart.remove();
+  }, duration * 1000);
+}
+
+// Create a heart burst effect with improved physics
+function createHeartBurst(x, y) {
+  const heartShower = document.getElementById('heartShower');
+  const count = 20;
+  const purpleColors = ['#9370db', '#8a2be2', '#9932cc', '#ba55d3', '#e6e6fa'];
+  
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement('div');
+    heart.classList.add('burst-heart');
+    heart.style.width = `${Math.random() * 20 + 10}px`;
+    heart.style.height = `${Math.random() * 20 + 10}px`;
+    
+    // Position at mouse click or center
+    heart.style.left = `${x || window.innerWidth/2}px`;
+    heart.style.top = `${y || window.innerHeight/2}px`;
+    
+    // Random color from purple palette
+    const colorIndex = Math.floor(Math.random() * purpleColors.length);
+    
+    // Add SVG for heart shape with proper color and glow
+    heart.innerHTML = `<svg viewBox="0 0 24 24" width="100%" height="100%" fill="${purpleColors[colorIndex]}">
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <path filter="url(#glow)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>`;
+    
+    // Calculate physics for more realistic burst
+    const angle = Math.random() * Math.PI * 2;
+    const force = Math.random() * 300 + 100;
+    const vx = Math.cos(angle) * force;
+    const vy = Math.sin(angle) * force;
+    const rotation = Math.random() * 720 - 360; // -360 to 360 degrees
+    
+    // Advanced animation with cubic-bezier for realistic physics
+    heart.animate([
+      { 
+        transform: 'scale(0) rotate(0deg)', 
+        opacity: 1
+      },
+      { 
+        transform: `scale(0.6) translate(${vx * 0.5}px, ${vy * 0.5}px) rotate(${rotation * 0.5}deg)`, 
+        opacity: 0.8
+      },
+      { 
+        transform: `scale(1) translate(${vx}px, ${vy}px) rotate(${rotation}deg)`, 
+        opacity: 0 
+      }
+    ], {
+      duration: 2000,
+      easing: 'cubic-bezier(0.11, 0.67, 0.43, 0.98)'
+    });
+    
+    heartShower.appendChild(heart);
+    
+    // Remove after animation completes
+    setTimeout(() => {
+      heart.remove();
+    }, 2000);
+  }
+}
+
+// Update fireflies
+function updateFireflies() {
+  const fireflyElements = document.querySelectorAll('.firefly');
+  fireflyElements.forEach(element => {
+    const firefly = element.__firefly;
+    if (firefly) {
+      firefly.update();
+    }
+  });
+  requestAnimationFrame(updateFireflies);
+}
+
+// Hide scroll indicator when user scrolls
+function handleScroll() {
+  const letter = document.getElementById('letter');
+  const indicator = document.querySelector('.scroll-indicator');
+  
+  if (letter.scrollTop > 20) {
+    indicator.style.opacity = '0';
+    setTimeout(() => {
+      indicator.style.display = 'none';
+    }, 500);
+  } else {
+    indicator.style.display = 'block';
+    setTimeout(() => {
+      indicator.style.opacity = '0.8';
+    }, 50);
+  }
+}
+
+// Initialize and start animations
+function init() {
+  createParticles(40);
+  animate();
+  createFireflies(25);
+  updateFireflies();
+  
+  // Create hearts periodically
+  setInterval(() => {
+    createFloatingHeart();
+  }, 800);
+  
+  // Initial hearts
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => {
+      createFloatingHeart();
+    }, i * 300);
+  }
+  
+  // Handle scroll events
+  const letter = document.getElementById('letter');
+  letter.addEventListener('scroll', handleScroll);
+  
+// Button click to send love burst
+document.getElementById('showLove').addEventListener('click', function(e) {
+    // Create a burst of hearts from the center
+    createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+    
+    // Add multiple bursts in sequence for a more spectacular effect
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => {
+        // Random positions across the screen
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        createHeartBurst(x, y);
+      }, i * 300);
+    }
+    
+    // Visual feedback for button
+    this.classList.add('clicked');
+    setTimeout(() => {
+      this.classList.remove('clicked');
+    }, 500);
+    
+    // Create extra floating hearts
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        createFloatingHeart();
+      }, i * 100);
+    }
+
+    setTimeout(() => {
+      const phoneNumber = "917034313243";
+      const message = "I love you so much 😘";
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.location.href = whatsappURL;
+    }, 800);
+  });
+  
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+  
+  // Initial heart burst when page loads
+  setTimeout(() => {
+    createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+  }, 2000);
+}
+
+// Start everything when the page loads
+window.addEventListener('load', init);
+</script>
+</body>
+</html>
